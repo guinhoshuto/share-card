@@ -27,7 +27,20 @@ function App() {
     }
   }, [])
 
-  function download(){}
+  function download(mediaUrl){
+    fetch(mediaUrl)
+    .then(r => r.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(new Blob([blob]))
+      const _link = document.createElement("a")
+      _link.href = url
+      _link.setAttribute('download', 'image.jpeg')
+
+      document.body.appendChild(_link)
+      _link.click()
+      _link.parentNode.removeChild(_link)
+    })
+  }
 
   async function share(mediaUrl){
     console.log('share')
@@ -44,23 +57,22 @@ function App() {
     }
   } 
 
-  function handleClick(e){
+  async function handleClick(e){
     const mediaUrl = e.currentTarget.dataset.img;
     console.log("clicked", mediaUrl);
 
     setImageUrl(mediaUrl)
-    setShareToggle(!shareToggle)
-
-    if(canShare) {
-      setShareToggle(!shareToggle)
-      // await share(mediaUrl)
-    }
+    canShare ? setShareToggle(!shareToggle) : await download(imageUrl)
+    // if(canShare) {
+    //   setShareToggle(!shareToggle)
+    //   // await share(mediaUrl)
+    // }
   }
 
   return (
     <div className='relative'>
       <div className="bg-gray-800 h-screen w-full flex items-center justify-center">
-        <a href={!canShare ? image : 'javascript:void(0)'} target='_blank' download="image" >
+        {/* <a href={!canShare ? image : 'javascript:void(0)'} target='_blank' download="image" > */}
           <div 
             data-img={image}
             onClick={(e) => handleClick(e)} 
@@ -73,10 +85,10 @@ function App() {
               </div> 
             </div>
           </div>
-        </a>
+        {/* </a> */}
       </div>
       <div id="shareCard" className='absolute bottom-0 w-full flex justify-center hidden duration-500'>
-        <ShareCard handleShare={() => share(imageUrl)} handleDownload={() => download()} />
+        <ShareCard handleShare={() => share(imageUrl)} handleDownload={() => download(imageUrl)} />
       </div> 
     </div> 
   );
