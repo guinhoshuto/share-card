@@ -7,6 +7,7 @@ const image = "https://images.pexels.com/photos/15272405/pexels-photo-15272405/f
 
 function App() {
   const [canShare, setCanShare] = useState(false)
+  const [imageUrl, setImageUrl] = useState('')
   const [shareToggle, setShareToggle] = useState(false)
 
   const shareCard = document.querySelector('#shareCard')
@@ -21,12 +22,18 @@ function App() {
   }, [shareToggle])  
 
   useEffect(() => {
-    setCanShare(navigator.share)
+    if(navigator.share) {
+      setCanShare(true)
+    }
   }, [])
 
-  async function share(mediaUrl){
-      const file = await fetch(mediaUrl).then(r => r.blob())
+  function download(){}
 
+  async function share(mediaUrl){
+    console.log('share')
+    const file = await fetch(mediaUrl).then(r => r.blob())
+
+    if(navigator.share){
       await navigator.share({
         files: [ 
           new File([file], 'img.jpeg', {
@@ -34,22 +41,26 @@ function App() {
           })
         ]
       })
+    }
   } 
 
-  async function handleClick(e){
+  function handleClick(e){
     const mediaUrl = e.currentTarget.dataset.img;
     console.log("clicked", mediaUrl);
+
+    setImageUrl(mediaUrl)
     setShareToggle(!shareToggle)
 
     if(canShare) {
-      await share(mediaUrl)
+      setShareToggle(!shareToggle)
+      // await share(mediaUrl)
     }
   }
 
   return (
     <div className='relative'>
       <div className="bg-gray-800 h-screen w-full flex items-center justify-center">
-        <a href={!canShare ? image : 'javascript:void(0)'} download="image" >
+        <a href={!canShare ? image : 'javascript:void(0)'} target='_blank' download="image" >
           <div 
             data-img={image}
             onClick={(e) => handleClick(e)} 
@@ -64,8 +75,8 @@ function App() {
           </div>
         </a>
       </div>
-      <div id="shareCard" className='absolute bottom-0 w-full flex justify-center hidden'>
-        <ShareCard />
+      <div id="shareCard" className='absolute bottom-0 w-full flex justify-center hidden duration-500'>
+        <ShareCard handleShare={() => share(imageUrl)} handleDownload={() => download()} />
       </div> 
     </div> 
   );
