@@ -57,11 +57,10 @@ function App() {
 
   async function handleClick(e){
     const mediaUrl = e.currentTarget.dataset.img;
-    console.log("clicked", mediaUrl);
 
     setImageUrl(mediaUrl)
-    setShareToggle(!shareToggle)
-    // canShare ? setShareToggle(!shareToggle) : await download(imageUrl)
+    // setShareToggle(!shareToggle)
+    canShare ? setShareToggle(!shareToggle) : await download(imageUrl)
   }
 
   return (
@@ -80,7 +79,8 @@ function App() {
             </div>
           </div>
       </div>
-      <div id="shareCard" className='absolute bottom-0 w-full flex justify-center hidden duration-500'>
+      <div id="shareCard" className='relative inset-0 w-full h-full flex justify-center hidden'>
+        {/* <div className='absolute inset-0 bottom-0 left-0 h-full w-full transition-all ease-out duration-500 bg-black/20'></div> */}
         <ShareCard handleShare={() => share(imageUrl)} handleDownload={() => download(imageUrl)} />
       </div> 
     </div> 
