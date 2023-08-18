@@ -3,6 +3,7 @@ import { DownloadSimple, Share} from "@phosphor-icons/react"
 import ShareCard from './ShareCard';
 import './App.css';
 const image = "https://postcat3.s3.us-east-1.amazonaws.com/71cb383e-0d50-4d58-b588-b6f06612c3ac_0_wm.png"
+const options = { crossOrigin: "Anonymous",  mode: "cors"}
 // const image = '/img.jpeg'
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
   }, [])
 
   function download(mediaUrl){
-    fetch(mediaUrl, { crossOrigin: "Anonymous"})
+    fetch(mediaUrl, options)
     .then(r => r.blob())
     .then(blob => {
       const url = window.URL.createObjectURL(new Blob([blob]))
@@ -38,7 +39,7 @@ function App() {
   }
 
   async function share(mediaUrl){
-    const file = await fetch(mediaUrl, {crossOrigin: "Anonymous"}).then(r => r.blob())
+    const file = await fetch(mediaUrl, options).then(r => r.blob())
 
     try{
       await navigator.share({
