@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { DownloadSimple, Share} from "@phosphor-icons/react"
 import ShareCard from './ShareCard';
 import './App.css';
-const image = "https://postcat3.s3.us-east-1.amazonaws.com/1ac92c37-8774-4e74-8573-ea8d608ba1a2_0.png"
-const options = {crossOrigin: "anonymous", mode: "no-cors"}
+const image = "https://images.pexels.com/photos/18003658/pexels-photo-18003658/free-photo-of-i-am-on-the-top-of-world-view-from-250m-apartment.jpeg"
+// const options = {crossOrigin: "anonymous", mode: "no-cors"}
+const options = {}
 // const image = '/img.jpeg'
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
       const url = window.URL.createObjectURL(new Blob([blob]))
       const _link = document.createElement("a")
       _link.href = url
-      _link.setAttribute('download', 'image.png')
+      _link.setAttribute('download', 'image.jpeg')
 
       document.body.appendChild(_link)
       _link.click()
@@ -47,7 +48,7 @@ function App() {
   }
 
   async function share(mediaUrl){
-    const file = await fetch(mediaUrl, {crossOrigin: "Anonymous",  mode: "cors"}).then(r => r.blob())
+    const file = await fetch(mediaUrl, options).then(r => r.blob())
 
     try{
       // await navigator.share({
@@ -57,7 +58,7 @@ function App() {
       // })
       await navigator.share({
         files: [ 
-          new File([file], 'img.png', {
+          new File([file], `img.$${file.type}`, {
             type: file.type
           })
         ]
