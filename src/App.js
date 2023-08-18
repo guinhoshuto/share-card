@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { DownloadSimple, Share} from "@phosphor-icons/react"
 import ShareCard from './ShareCard';
 import './App.css';
-const image = "https://postcat3.s3.us-east-1.amazonaws.com/649960a3-dcd0-4c67-8183-43c9ba6b4ba2_0_wm.png"
+const image = "https://postcat3.s3.us-east-1.amazonaws.com/71cb383e-0d50-4d58-b588-b6f06612c3ac_0_wm.png"
 // const image = '/img.jpeg'
 
 function App() {
