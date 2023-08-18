@@ -8,20 +8,17 @@ const image = "https://images.pexels.com/photos/15272405/pexels-photo-15272405/f
 function App() {
   const [canShare, setCanShare] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
+  const [message, setMessage] = useState('')
   const [shareToggle, setShareToggle] = useState(false)
 
   const shareCard = document.querySelector('#shareCard')
-  // async function imageBlob(url){
-  //   const blob = await fetch(url).then(r => r.blob())
-  //   return new File([blob], 'img.png', {
-  //     type: blob.type
-  //   })
-  // }
+
   useEffect(() => {
     if(shareToggle) shareCard.classList.toggle('hidden')
   }, [shareToggle])  
 
   useEffect(() => {
+    console.log(canShare)
     if(navigator.share) {
       setCanShare(true)
     }
@@ -43,10 +40,9 @@ function App() {
   }
 
   async function share(mediaUrl){
-    console.log('share')
     const file = await fetch(mediaUrl).then(r => r.blob())
 
-    if(navigator.share){
+    try{
       await navigator.share({
         files: [ 
           new File([file], 'img.jpeg', {
@@ -54,6 +50,8 @@ function App() {
           })
         ]
       })
+    } catch (err) {
+      console.log(err) 
     }
   } 
 
@@ -63,16 +61,11 @@ function App() {
 
     setImageUrl(mediaUrl)
     canShare ? setShareToggle(!shareToggle) : await download(imageUrl)
-    // if(canShare) {
-    //   setShareToggle(!shareToggle)
-    //   // await share(mediaUrl)
-    // }
   }
 
   return (
     <div className='relative'>
       <div className="bg-gray-800 h-screen w-full flex items-center justify-center">
-        {/* <a href={!canShare ? image : 'javascript:void(0)'} target='_blank' download="image" > */}
           <div 
             data-img={image}
             onClick={(e) => handleClick(e)} 
@@ -85,7 +78,6 @@ function App() {
               </div> 
             </div>
           </div>
-        {/* </a> */}
       </div>
       <div id="shareCard" className='absolute bottom-0 w-full flex justify-center hidden duration-500'>
         <ShareCard handleShare={() => share(imageUrl)} handleDownload={() => download(imageUrl)} />
