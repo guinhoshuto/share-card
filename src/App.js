@@ -31,7 +31,7 @@ function App() {
       const url = window.URL.createObjectURL(new Blob([blob]))
       const _link = document.createElement("a")
       _link.href = url
-      _link.setAttribute('download', 'image.jpeg')
+      _link.setAttribute('download', 'image.png')
 
       document.body.appendChild(_link)
       _link.click()
