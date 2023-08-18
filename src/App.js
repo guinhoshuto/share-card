@@ -33,7 +33,6 @@ function App() {
 
   function download(mediaUrl){
     fetch(mediaUrl, options)
-    // new Promise(getImage(mediaUrl))
     .then(r => r.blob())
     .then(blob => {
       const url = window.URL.createObjectURL(new Blob([blob]))
@@ -58,7 +57,7 @@ function App() {
       // })
       await navigator.share({
         files: [ 
-          new File([file], `img.$${file.type}`, {
+          new File([file], `img.${file.type}`, {
             type: file.type
           })
         ]
