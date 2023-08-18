@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { DownloadSimple, Share} from "@phosphor-icons/react"
 import ShareCard from './ShareCard';
 import './App.css';
-const image = "https://images.pexels.com/photos/18003658/pexels-photo-18003658/free-photo-of-i-am-on-the-top-of-world-view-from-250m-apartment.jpeg"
+const image = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80"
 // const options = {crossOrigin: "anonymous", mode: "no-cors"}
 const options = {}
 // const image = '/img.jpeg'
