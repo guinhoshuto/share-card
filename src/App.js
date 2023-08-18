@@ -59,8 +59,8 @@ function App() {
     const mediaUrl = e.currentTarget.dataset.img;
 
     setImageUrl(mediaUrl)
-    // setShareToggle(!shareToggle)
-    canShare ? setShareToggle(!shareToggle) : await download(imageUrl)
+    setShareToggle(!shareToggle)
+    // canShare ? setShareToggle(!shareToggle) : await download(imageUrl)
   }
 
   return (
