@@ -8,7 +8,6 @@ const image = "https://postcat3.s3.us-east-1.amazonaws.com/71cb383e-0d50-4d58-b5
 function App() {
   const [canShare, setCanShare] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
-  const [message, setMessage] = useState('')
   const [shareToggle, setShareToggle] = useState(false)
 
   const shareCard = document.querySelector('#shareCard')
@@ -18,7 +17,6 @@ function App() {
   }, [shareToggle])  
 
   useEffect(() => {
-    console.log(canShare)
     if(navigator.share) {
       setCanShare(true)
     }
@@ -45,7 +43,7 @@ function App() {
     try{
       await navigator.share({
         files: [ 
-          new File([file], 'img.jpeg', {
+          new File([file], 'img.png', {
             type: file.type
           })
         ]
