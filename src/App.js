@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { DownloadSimple, Share} from "@phosphor-icons/react"
 import ShareCard from './ShareCard';
 import './App.css';
-const image = "https://images.pexels.com/photos/15272405/pexels-photo-15272405/free-photo-of-fotografia-aerea-aerofotografia-tiro-com-drone-natureza.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+const image = "https://postcat3.s3.us-east-1.amazonaws.com/649960a3-dcd0-4c67-8183-43c9ba6b4ba2_0_wm.png"
 // const image = '/img.jpeg'
 
 function App() {
