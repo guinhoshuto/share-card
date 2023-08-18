@@ -3,7 +3,7 @@ import { DownloadSimple, Share} from "@phosphor-icons/react"
 import ShareCard from './ShareCard';
 import './App.css';
 const image = "https://postcat3.s3.us-east-1.amazonaws.com/71cb383e-0d50-4d58-b588-b6f06612c3ac_0_wm.png"
-const options = { crossOrigin: "Anonymous",  mode: "cors"}
+const options = { crossOrigin: "Anonymous",  mode: "no-cors"}
 // const image = '/img.jpeg'
 
 function App() {
