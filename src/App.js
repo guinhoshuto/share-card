@@ -32,7 +32,7 @@ function App() {
   }
 
   function download(mediaUrl){
-    fetch(mediaUrl, options)
+    fetch(mediaUrl)
     .then(r => r.blob())
     .then(blob => {
       const url = window.URL.createObjectURL(new Blob([blob]))
@@ -47,7 +47,7 @@ function App() {
   }
 
   async function share(mediaUrl){
-    const file = await fetch(mediaUrl, options).then(r => r.blob())
+    const file = await fetch(mediaUrl).then(r => r.blob())
 
     try{
       // await navigator.share({
