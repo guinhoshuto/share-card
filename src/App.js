@@ -60,7 +60,8 @@ function App() {
     console.log("clicked", mediaUrl);
 
     setImageUrl(mediaUrl)
-    canShare ? setShareToggle(!shareToggle) : await download(imageUrl)
+    setShareToggle(!shareToggle)
+    // canShare ? setShareToggle(!shareToggle) : await download(imageUrl)
   }
 
   return (
