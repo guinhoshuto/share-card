@@ -12,12 +12,6 @@ function App() {
   const [imageUrl, setImageUrl] = useState(image)
   const [shareToggle, setShareToggle] = useState(false)
 
-  const shareCard = document.querySelector('#shareCard')
-
-  useEffect(() => {
-    if(shareToggle) shareCard.classList.toggle('hidden')
-  }, [shareToggle])  
-
   useEffect(() => {
     if(navigator.share) {
       setCanShare(true)
@@ -68,38 +62,42 @@ function App() {
     // const mediaUrl = e.currentTarget.dataset.img;
 
     // setImageUrl(mediaUrl)
-    canShare ? setShareToggle(!shareToggle) : await download(imageUrl)
+    canShare ? setShareToggle(true) : await download(imageUrl)
   }
 
   return (
-    <div className='relative'>
-      <div className="bg-gray-800 h-screen w-full flex flex-col items-center justify-center gap-8">
-          <input
-           type="url" 
-           value={imageUrl}
-           onChange={(e) => setImageUrl(e.target.value)}
-           placeholder='Enter image url' 
-           className='w-64 p-2 rounded-lg text-gray-300'/>
-          <div 
-            data-img={image}
-            onClick={(e) => handleClick(e)} 
-            className="group relative w-64 h-96 rounded-xl overflow-hidden cursor-pointer shadow-xl"
-            >
-            <img 
-              src={imageUrl} 
-              alt="selected" 
-              className='object-cover w-full h-full'
-            />
-            <div className='absolute top-0 right-0 h-full w-full bg-black opacity-0 group-hover:opacity-40 duration-500 flex items-center justify-center'>
-              <div className='text-white text-2xl'>
-                {canShare ? (<Share size={32} />) : (<DownloadSimple size={32} />)}
-              </div> 
-            </div>
+    <div className='relative bg-gray-800 h-screen w-full flex flex-col items-center justify-center gap-8'>
+        <input
+          type="url" 
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+          placeholder='Enter image url' 
+          className='w-64 p-2 rounded-lg text-gray-300'/>
+        <div 
+          data-img={image}
+          onClick={(e) => handleClick(e)} 
+          className="group relative w-64 h-96 rounded-xl overflow-hidden cursor-pointer shadow-xl"
+          >
+          <img 
+            src={imageUrl} 
+            alt="selected" 
+            className='object-cover w-full h-full'
+          />
+          <div className='absolute top-0 right-0 h-full w-full bg-black opacity-0 group-hover:opacity-40 duration-500 flex items-center justify-center'>
+            <div className='text-white text-2xl'>
+              {canShare ? (<Share size={32} />) : (<DownloadSimple size={32} />)}
+            </div> 
           </div>
-      </div>
-      <div id="shareCard" className='relative inset-0 w-full h-full flex justify-center hidden'>
-        {/* <div className='absolute inset-0 bottom-0 left-0 h-full w-full transition-all ease-out duration-500 bg-black/20'></div> */}
-        <ShareCard handleShare={() => share(imageUrl)} handleDownload={() => download(imageUrl)} />
+        </div>
+      <div 
+        id="shareCard"
+        className={`fixed inset-0 w-full h-full flex justify-center ${shareToggle ? '' : 'hidden'}`}>
+        <div 
+          onClick={() => setShareToggle(false)} 
+          className='absolute inset-0 top-0 left-0 h-full w-full transition-all ease-out duration-500 bg-black/30'></div>
+        <ShareCard 
+          handleShare={() => share(imageUrl)} 
+          handleDownload={() => download(imageUrl)} />
       </div> 
     </div> 
   );
