@@ -4,7 +4,11 @@ import ShareCard from './ShareCard';
 import './App.css';
 const image = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80"
 // const options = {crossOrigin: "anonymous", mode: "no-cors"}
-const options = {}
+const options = {
+  method: "GET",
+  // headers: myHeaders,
+  cache: "default",
+}
 // const image = '/img.jpeg'
 
 function App() {
@@ -19,7 +23,7 @@ function App() {
   }, [])
 
   async function getImageBlob(mediaUrl){
-    return await fetch(mediaUrl).then(r => r.blob())
+    return await fetch(mediaUrl + '?not-from-cache-please', options).then(r => r.blob())
   }
 
   // function getImage(imageUrl){
@@ -47,8 +51,8 @@ function App() {
 
     try{
       await navigator.share({
-        files: [ 
-          new File([file], `img.${file.type}`, {
+        files: [
+          new File([file], `img.jpeg`, {
             type: file.type
           })
         ]
