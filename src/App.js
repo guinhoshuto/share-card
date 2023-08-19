@@ -52,7 +52,7 @@ function App() {
     try{
       await navigator.share({
         files: [
-          new File([file], `img.jpeg`, {
+          new File([file], `img`, {
             type: file.type
           })
         ]
